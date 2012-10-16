@@ -1,5 +1,5 @@
 #!/bin/bash
 
-for i in $(cat packages.list); do
+for i in $(cat $plugindir/custom-packages-tasks/packages.list); do
 	packages+=($i)
 done
