@@ -1,0 +1,2 @@
+#!/bin/bash
+insert_task_after $TASK_PACKAGES $plugindir/custom-packages-tasks/add-custom-packages
