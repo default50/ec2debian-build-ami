@@ -14,3 +14,4 @@ bsd-mailx
 postfix
 sharutils
 libpam-radius-auth
+default-jre
