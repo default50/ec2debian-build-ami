@@ -15,3 +15,5 @@ postfix
 sharutils
 libpam-radius-auth
 default-jre
+python-pip
+dnsutils
