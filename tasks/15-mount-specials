@@ -1,7 +1,9 @@
 #!/bin/bash
+# Mount special devices
+
 # Unmount if the bootstrapping fails
-trap "echo 'Bootstrapping failed!'
-cd $scriptdir
+trap "printf 'Bootstrapping failed!\n'
+cd $originaldir
 chroot $imagedir umount /dev/pts
 chroot $imagedir umount /sys
 chroot $imagedir umount /proc

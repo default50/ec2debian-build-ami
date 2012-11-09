@@ -2,9 +2,9 @@
 # Retreive information about the host system
 instance_information=`curl --silent http://169.254.169.254/latest/dynamic/instance-identity/document`
 # We need the region, for the apt sources and the availability zone for the EBS volume
-instance_id=`echo "$instance_information" | grep instanceId | awk -F\" '{print $4}'`
-region=`echo "$instance_information" | grep region | awk -F\" '{print $4}'`
-availability_zone=`echo "$instance_information" | grep availabilityZone | awk -F\" '{print $4}'`
+instance_id=`printf -- "$instance_information" | grep instanceId | awk -F\" '{print $4}'`
+region=`printf -- "$instance_information" | grep region | awk -F\" '{print $4}'`
+availability_zone=`printf -- "$instance_information" | grep availabilityZone | awk -F\" '{print $4}'`
 
 if [ -z "$instance_id" ]; then
 	die \
@@ -19,12 +19,13 @@ export EC2_URL="https://$region.ec2.amazonaws.com"
 
 # We can speed up the bootstrapping process by choosing a debian mirror nearby
 case $region in
-	eu-west-1)      apt_mirror="http://ftp.ie.debian.org/debian/" ;;
 	us-east-1)      apt_mirror="http://ftp.us.debian.org/debian/" ;;
 	us-west-1)      apt_mirror="http://ftp.us.debian.org/debian/" ;;
 	us-west-2)      apt_mirror="http://ftp.us.debian.org/debian/" ;;
-	ap-northeast-1) apt_mirror="http://ftp.jp.debian.org/debian/" ;;
+	eu-west-1)      apt_mirror="http://ftp.ie.debian.org/debian/" ;;
 	ap-southeast-1) apt_mirror="http://mirror.nus.edu.sg/Debian/" ;;
+	ap-northeast-1) apt_mirror="http://ftp.jp.debian.org/debian/" ;;
 	sa-east-1)      apt_mirror="http://ftp.br.debian.org/debian/" ;;
+	us-gov-west-1)  apt_mirror="http://ftp.us.debian.org/debian/" ;;
 	*)              die "Unrecognized region:" "$region"
 esac
